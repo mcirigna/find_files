@@ -1,16 +1,19 @@
 # show_files
 
 Description
+
     show files created within specified time frame
     enter dates using format year-month-day
     works with python2 and python3
 
 Output Structure
+
     file
     path
     birthtime permissions user group size number_of_hardlinks
 
 Examples
+
     python show_files.py --after 2016-10-12
         - prints all files created after 2016-10-12
 
