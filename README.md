@@ -5,12 +5,13 @@ Description
     show files created within specified time frame
     enter dates using format year-month-day
     works with python2 and python3
+    added support for windows
 
 Output Structure
 
     file
     path
-    birthtime permissions user group size number_of_hardlinks
+    birthtime permissions size hardlinks
 
 Examples
 
@@ -21,7 +22,7 @@ Examples
         - prints all files created before 2006-04-14
 
     python3 show_files.py -a 2014-07-12 -b 2014-07-14
-        - prints all files between 2014-07-12 and 2014-07-14
+        - prints all files after 2014-07-12 and before 2014-07-14
 
     python3 show_files.py --verbose -a 2014-07-12
         - verbose will indicate files that are inaccessible

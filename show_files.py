@@ -1,6 +1,5 @@
 from __future__ import print_function
-from pwd import getpwuid
-import sys, os, time, datetime, argparse, stat, grp
+import sys, os, time, datetime, argparse, stat
 
 def getPermissions(fileStat):
     """
@@ -17,17 +16,15 @@ def getPermissions(fileStat):
 def showFiles(startTime, endTime, verbose):
     """ 
     for all files created between startTime and endTime
-        print (file, path, birthtime, permissions, user, group, size, number of hardlinks)
+        print (file, path, birthtime, permissions, size, hardlinks)
     """
     for root, _, files in os.walk("/"):
         for file in files:
             try:            
                 path = os.path.join(root, file)
                 fileStat = os.stat(path)
-                birthtime = datetime.datetime.fromtimestamp(fileStat.st_birthtime)
+                birthtime = datetime.datetime.fromtimestamp(fileStat.st_ctime)
                 permissions = getPermissions(fileStat)
-                user = getpwuid(fileStat.st_uid).pw_name
-                group = grp.getgrgid(fileStat.st_gid)[0]
                 size = fileStat.st_size
                 hardlinks = fileStat.st_nlink
             except:
@@ -38,14 +35,14 @@ def showFiles(startTime, endTime, verbose):
                 else:
                     print('\n{0}'.format(file))
                     print(path)
-                    print(birthtime.strftime('%Y-%m-%d %H:%M:%S'), permissions, user, group, size, hardlinks)
+                    print(birthtime.strftime('%Y-%m-%d %H:%M:%S'), permissions, size, hardlinks)
 
 if __name__ == '__main__':
     """
     for all files created between startTime and endTime
         print   file 
                 path 
-                birthtime permissions user group size number_of_hardlinks
+                birthtime permissions size hardlinks
     """
     parser = argparse.ArgumentParser(description='Show files within a specified time frame using format year-month-day',
                                     epilog='example: python3 show_files.py --after 2013-09-14 --before 2016-10-22')
@@ -58,7 +55,7 @@ if __name__ == '__main__':
         try:
             startTime = datetime.datetime.strptime(args.after, '%Y-%m-%d')
         except:
-            sys.exit('invalid date format {0}'.format(args.after))
+            sys.exit('invalid date {0}'.format(args.after))
     else:
         startTime = None
 
@@ -66,7 +63,7 @@ if __name__ == '__main__':
         try:
             endTime = datetime.datetime.strptime(args.before, '%Y-%m-%d')
         except:
-            sys.exit('invalid date format {0}'.format(args.before))
+            sys.exit('invalid date {0}'.format(args.before))
     else:
         endTime = None
 
