@@ -1,29 +1,29 @@
-# show_files
+# find_files
 
 Description
 
-    show files created within specified time frame
+    find files created within specified time frame
     enter dates using format year-month-day
     works with python2 and python3
     added support for windows
+    outputs to a csv file
 
-Output Structure
+CSV output structure
 
-    file
-    path
-    birthtime permissions size hardlinks
+    file, path, birthtime, permissions, size, hardlinks
 
-Examples
+Example
 
-    python show_files.py --after 2016-10-12
-        - prints all files created after 2016-10-12
-
-    python show_files.py --before 2006-04-14
-        - prints all files created before 2006-04-14
-
-    python3 show_files.py -a 2014-07-12 -b 2014-07-14
-        - prints all files after 2014-07-12 and before 2014-07-14
-
-    python3 show_files.py --verbose -a 2014-07-12
-        - verbose will indicate files that are inaccessible
+    python find_files.py
+    
+    What folder would you like to search?
+    > /Users/jeff/Desktop
+    Would you like to search sub directories? Y/n
+    > Y
+    What start date should be used to filter the files?
+    > 2015-10-23
+    What end date should be used to filter the files?
+    > 2019-01-14
+    The output will be in a csv file. What should the file name be?
+    > output.csv
 
