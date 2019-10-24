@@ -23,7 +23,7 @@ def get_files(folder, recursive, startDate, endDate):
             try:            
                 path = os.path.join(root, file)
                 fileStat = os.stat(path)
-                birthtime = datetime.datetime.fromtimestamp(fileStat.st_ctime)
+                birthtime = datetime.datetime.fromtimestamp(fileStat.st_ctime).date()
                 permissions = get_permissions(fileStat)
                 size = fileStat.st_size
                 hardlinks = fileStat.st_nlink
@@ -33,7 +33,7 @@ def get_files(folder, recursive, startDate, endDate):
                 if (startDate is not None and birthtime < startDate) or (endDate is not None and birthtime > endDate):
                     break
                 else:
-                    rows.append([file,path,birthtime.strftime('%Y-%m-%d %H:%M:%S'), permissions, size, hardlinks])
+                    rows.append([file,path,birthtime.strftime('%Y-%m-%d'), permissions, size, hardlinks])
         if not recursive: break
     return rows
 
@@ -63,7 +63,7 @@ if __name__ == '__main__':
     startInput = input('What start date should be used to filter the files?\n> ')
     while True:
         try:
-            startDate = datetime.datetime.strptime(startInput, '%Y-%m-%d')
+            startDate = datetime.datetime.strptime(startInput, '%Y-%m-%d').date()
         except:
             startInput = input('The date should be formatted like 2015-11-23, try again.\n> ')
         else:
@@ -72,7 +72,7 @@ if __name__ == '__main__':
     endInput = input('What end date should be used to filter the files?\n> ')
     while True:
         try:
-            endDate = datetime.datetime.strptime(endInput, '%Y-%m-%d')
+            endDate = datetime.datetime.strptime(endInput, '%Y-%m-%d').date()
         except:
             endInput = input('The date should be formatted like 2015-11-23, try again.\n> ')
         else:

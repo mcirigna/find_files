@@ -2,11 +2,12 @@
 
 Description
 
-    find files created within specified time frame
+    find files created within Start Date and End Date
     enter dates using format year-month-day
     works with python2 and python3
     added support for windows
     outputs to a csv file
+    this program does not consider Hours Minutes or Seconds, only date
 
 CSV output structure
 
