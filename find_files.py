@@ -92,7 +92,7 @@ if __name__ == '__main__':
     with open(name, 'w') as csvfile:
         writer = csv.writer(csvfile)
         writer.writerows(rows)
-    path = csvfile.name
+    path = os.path.realpath(csvfile.name)
     csvfile.close()
 
     print('Your output file is located in: {0}'.format(path))
