@@ -13,27 +13,23 @@ def get_permissions(fileStat):
 
 
 def get_files(folder, recursive, startDate, endDate):
-    """ 
-    for all files in folder created between startDate and endDate
-        get (file, path, birthtime, permissions, size, hardlinks)
-    """
     rows = [ ['file','path','creationtime','permissions','size','hardlinks'] ]
     for root, _, files in os.walk(folder):
         for file in files:
             try:            
                 path = os.path.join(root, file)
                 fileStat = os.stat(path)
-                birthtime = datetime.datetime.fromtimestamp(fileStat.st_ctime).date()
+                birthdate = datetime.datetime.fromtimestamp(fileStat.st_ctime).date()
                 permissions = get_permissions(fileStat)
                 size = fileStat.st_size
                 hardlinks = fileStat.st_nlink
             except:
                 pass
             else:
-                if (startDate is not None and birthtime < startDate) or (endDate is not None and birthtime > endDate):
+                if (startDate is not None and birthdate < startDate) or (endDate is not None and birthdate > endDate):
                     break
                 else:
-                    rows.append([file,os.path.realpath(path),birthtime.strftime('%Y-%m-%d'), permissions, size, hardlinks])
+                    rows.append([file,os.path.realpath(path),birthdate.strftime('%m/%d/%Y'), permissions, size, hardlinks])
         if not recursive: break
     return rows
 
@@ -63,18 +59,18 @@ if __name__ == '__main__':
     startInput = input('What start date should be used to filter the files?\n> ')
     while True:
         try:
-            startDate = datetime.datetime.strptime(startInput, '%Y-%m-%d').date()
+            startDate = datetime.datetime.strptime(startInput, '%m/%d/%Y').date()
         except:
-            startInput = input('The date should be formatted like 2015-11-23, try again.\n> ')
+            startInput = input('The date should be formatted like 11/23/2015, try again.\n> ')
         else:
             break
 
     endInput = input('What end date should be used to filter the files?\n> ')
     while True:
         try:
-            endDate = datetime.datetime.strptime(endInput, '%Y-%m-%d').date()
+            endDate = datetime.datetime.strptime(endInput, '%m/%d/%Y').date()
         except:
-            endInput = input('The date should be formatted like 2015-11-23, try again.\n> ')
+            endInput = input('The date should be formatted like 11/23/2015, try again.\n> ')
         else:
             break
 
@@ -95,4 +91,4 @@ if __name__ == '__main__':
     path = os.path.realpath(csvfile.name)
     csvfile.close()
 
-    print('Your output file is located in: {0}'.format(path))
+    print('Your output file is located at: {0}'.format(path))

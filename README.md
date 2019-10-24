@@ -3,15 +3,15 @@
 Description
 
     find files created within Start Date and End Date
-    enter dates using format year-month-day
+    enter dates using format month/day/year like 10/30/2019
     works with python2 and python3
     added support for windows
     outputs to a csv file
-    this program does not consider Hours Minutes or Seconds, only date
+    this program does not consider hours minutes or seconds, only date
 
 CSV output structure
 
-    file, path, birthtime, permissions, size, hardlinks
+    file, path, birthdate, permissions, size, hardlinks
 
 Example
 
@@ -22,9 +22,10 @@ Example
     Would you like to search sub directories? Y/n
     > Y
     What start date should be used to filter the files?
-    > 2015-10-23
+    > 10/01/2019
     What end date should be used to filter the files?
-    > 2019-01-14
+    > 10/24/2019
     The output will be in a csv file. What should the file name be?
-    > output.csv
+    > output
+    Your output file is located at: /Users/jeff/Desktop/output.csv
 
