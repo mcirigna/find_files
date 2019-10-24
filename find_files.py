@@ -33,7 +33,7 @@ def get_files(folder, recursive, startDate, endDate):
                 if (startDate is not None and birthtime < startDate) or (endDate is not None and birthtime > endDate):
                     break
                 else:
-                    rows.append([file,path,birthtime.strftime('%Y-%m-%d'), permissions, size, hardlinks])
+                    rows.append([file,os.path.realpath(path),birthtime.strftime('%Y-%m-%d'), permissions, size, hardlinks])
         if not recursive: break
     return rows
 
